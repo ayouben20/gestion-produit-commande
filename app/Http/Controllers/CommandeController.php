@@ -29,12 +29,12 @@ class CommandeController extends Controller
         $commandeid = $commande->id;
 // print_r($request->ajouter);die();
 // Parcourir les produits ajoutés à la commande
-foreach ($request->ajouter as $key=>$produitID) {
+foreach ($request->ajouter as $produitID) {
     // Récupérer la quantité associée à chaque produit
-    $quantite = $request->quantite[$key];
+    $quantite = $request->quantite[$produitID];
     
     // Associer le produit à la commande et spécifier la quantité dans la table de liaison
-    $commande->produits()->attach($key, ['quantite' => $quantite]);
+    $commande->produits()->attach($produitID, ['quantite' => $quantite]);
 }
 
         return redirect()->back()->with('success', "La commande $commandeid a été traitée avec succès.");
